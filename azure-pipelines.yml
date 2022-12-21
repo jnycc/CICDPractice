@@ -35,9 +35,13 @@ steps:
         dep ensure
     fi
     GOOS=linux GOARCH=amd64 go build -o HelloGo-amd64 -v
-    go test ./..
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
+
+- task: Go@0
+  inputs:
+    command: 'test'
+    arguments: './..'
 
 - task: CopyFilesOverSSH@0
   inputs:
