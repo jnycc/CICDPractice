@@ -38,11 +38,15 @@ steps:
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
 
+- script: |
+    go test ./..
+  workingDirectory: '$(modulePath)'
+  displayName: 'Test app'
 
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'CICD-Practice-SSH'
-    contents: '$(modulePath)/bin/**'
+    contents: '$(modulePath)/bin/*'
     targetFolder: '/home/ods-cicd-user/'
     readyTimeout: '20000'
 
