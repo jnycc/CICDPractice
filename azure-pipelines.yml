@@ -41,25 +41,24 @@ steps:
 - script: |
     go test ./...
   workingDirectory: '$(modulePath)'
-  displayName: 'Test app'
+  displayName: 'Run unit tests'
 
-- task: CopyFilesOverSSH@0
+- task: 'CopyFilesOverSSH@0'
   inputs:
     sshEndpoint: 'CICD-Practice-SSH'
     sourceFolder: '$(modulePath)/bin'
     contents: '**'
     targetFolder: '/home/ods-cicd-user/'
     readyTimeout: '20000'
+  displayName: 'Copy build files over SSH to VM'
 
-- task: CmdLine@2
-  inputs:
-    script: 'sudo cp hello-go.service /etc/systemd/system/hello-go.service && sudo systemctl daemon-reload'
 
 - task: CmdLine@2
   inputs:
     script: |
+      pwd
+      ls-l
       sudo cp hello-go.service /etc/systemd/system/hello-go.service && sudo systemctl daemon-reload
       sudo service hello-go restart
       sudo iptables --flush -t nat && sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080 && sudo iptables-save
       curl --no-progress-meter $(curl --no-progress-meter https://api.ipify.org)/health-check
-
