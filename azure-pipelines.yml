@@ -34,7 +34,7 @@ steps:
         curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         dep ensure
     fi
-    GOOS=linux GOARCH=amd64 go build -o HelloGo-amd64 -v
+    go build -o bin/HelloGo-amd64 -v GOOS=linux GOARCH=amd64 
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
 
@@ -62,3 +62,4 @@ steps:
       sudo service hello-go restart
       sudo iptables --flush -t nat && sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080 && sudo iptables-save
       curl --no-progress-meter $(curl --no-progress-meter https://api.ipify.org)/health-check
+
