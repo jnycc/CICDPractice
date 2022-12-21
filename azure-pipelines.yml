@@ -34,14 +34,15 @@ steps:
         curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         dep ensure
     fi
-    GOOS=linux GOARCH=amd64 go build -o HelloGo-amd64-v .
+    GOOS=linux GOARCH=amd64 go build -o HelloGo-amd64 -v
+    go test ./..
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
 
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'CICD-Practice-SSH'
-    contents: '/bin/'
+    contents: '/bin/*'
     targetFolder: '/home/ods-cicd-user/'
     readyTimeout: '20000'
 
