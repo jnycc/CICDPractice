@@ -52,14 +52,15 @@ steps:
     readyTimeout: '20000'
   displayName: 'Copy build files over SSH to VM'
 
-
-- task: CmdLine@2
+- task: SSH@0
   inputs:
-    workingDirectory: 'home/ods-cicd-user/'
-    script: |
+    sshEndpoint: 'CICD-Practice-SSH'
+    runOptions: 'commands'
+    commands: |
       pwd
       ls -l
       sudo cp hello-go.service /etc/systemd/system/hello-go.service && sudo systemctl daemon-reload
       sudo service hello-go restart
       sudo iptables --flush -t nat && sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080 && sudo iptables-save
       curl --no-progress-meter $(curl --no-progress-meter https://api.ipify.org)/health-check
+    readyTimeout: '20000'
