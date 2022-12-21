@@ -1,0 +1,14 @@
+[Unit]
+Description=HelloGo
+After=network.target
+
+[Service]
+WorkingDirectory=/home/ods-cicd-user
+ExecStart=/home/ods-cicd-user/HelloGo-amd64
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=ods-cicd-user
+
+[Install]
+WantedBy=multi-user.target
