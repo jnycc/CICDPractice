@@ -51,7 +51,7 @@ steps:
     contents: '**'
     targetFolder: '/home/ods-cicd-user/'
     readyTimeout: '20000'
-  displayName: 'Copy build files over SSH to VM'
+  displayName: 'Copy build files over SSH to VM.'
 
 - task: SSH@0
   inputs:
