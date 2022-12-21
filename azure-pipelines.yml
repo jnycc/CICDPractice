@@ -39,7 +39,7 @@ steps:
   displayName: 'Get dependencies, then build'
 
 - script: |
-    go test ./..
+    go test ./...
   workingDirectory: '$(modulePath)'
   displayName: 'Test app'
 
