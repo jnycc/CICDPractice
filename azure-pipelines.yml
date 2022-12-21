@@ -38,10 +38,11 @@ steps:
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
 
-- task: Go@0
-  inputs:
-    command: 'test'
-    arguments: './..'
+- script: |
+    go test ./..
+  workingDirectory: '$(GOROOT)'
+  displayName: 'Run tests'
+
 
 - task: CopyFilesOverSSH@0
   inputs:
