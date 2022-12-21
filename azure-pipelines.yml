@@ -46,7 +46,8 @@ steps:
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'CICD-Practice-SSH'
-    contents: '$(modulePath)/bin/*'
+    sourceFolder: '$(modulePath)/bin'
+    contents: '**'
     targetFolder: '/home/ods-cicd-user/'
     readyTimeout: '20000'
 
