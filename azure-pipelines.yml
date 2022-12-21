@@ -14,7 +14,6 @@ variables:
   #GOROOT: '/usr/local/go1.11' # Go installation path
   GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
   modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
-  buildName: 'HelloGo-amd64'
 
 steps:
 - script: |
@@ -47,7 +46,7 @@ steps:
 - task: 'CopyFilesOverSSH@0'
   inputs:
     sshEndpoint: 'CICD-Practice-SSH'
-    sourceFolder: '$(modulePath)/bin'
+    sourceFolder: '$(modulePath)/bin/'
     contents: '**'
     targetFolder: '/home/ods-cicd-user/'
     readyTimeout: '20000'
